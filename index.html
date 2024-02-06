@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiny Contacts</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // 연락처를 저장할 객체 배열
+    var contacts = [];
+
+    function displayElementValue(id, text) {
+      var element = document.getElementById(id);
+      element.value = text;
+    }
+
+    function getElementValue(id) {
+      var element = document.getElementById(id);
+      return element.value;
+    }
+
+    function displayContactNotFound() {
+      alert("찾을 수 없습니다.");
+    }
+
+    function doSave() {
+      var name = getElementValue("name");
+      var address = getElementValue("address");
+      var phone = getElementValue("phone");
+
+      // 새로운 연락처 객체 생성
+      var newContact = {
+        name: name,
+        address: address,
+        phone: phone
+      };
+
+      // 연락처 배열에 추가
+      contacts.push(newContact);
+
+      // 저장 완료 알림
+      alert("연락처가 저장되었습니다.");
+    }
+
+    function doFind() {
+      var name = getElementValue("name");
+      var foundContact = contacts.find(contact => contact.name === name);
+
+      if (foundContact) {
+        // 연락처를 찾았을 때 정보 표시
+        displayElementValue("address", foundContact.address);
+        displayElementValue("phone", foundContact.phone);
+      } else {
+        // 연락처를 찾지 못했을 때 알림
+        displayContactNotFound();
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <p class="menuHeading"> &#128199; Tiny Contacts</p>
+
+  <p>
+    <label class="inputLabel" for="name">이름:</label>
+    <input class="inputText" id="name">
+  </p>
+
+  <p>
+    <label class="inputLabel" for="address">주소:</label>
+    <textarea class="inputTextarea" rows="5" cols="40" id="address"></textarea>
+  </p>
+
+  <p>
+    <label class="inputLabel" for="phone">전화번호:</label>
+    <input class="inputText" id="phone">
+  </p>
+
+  <p>
+    <button class="menuButton" onclick="doFind()">Find contact</button>
+    <button class="menuButton" onclick="doSave()">Save contact</button>
+  </p>
+
+</body>
+
+</html>
